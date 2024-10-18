@@ -1,14 +1,11 @@
 const mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb+srv://aisyahlailia:aisyahblajar@aisyah.lpjvo.mongodb.net/vocasia-movie?retryWrites=true&w=majority&appName=aisyah"
-);
+const { Schema } = mongoose;
 const fs = require("fs");
 require("dotenv").config();
-const { title } = require("process");
 
 async function main() {
   /**--------------- Not allowed to be edited - start - --------------------- */
-  const mongoUri = process.env.MONGODB_URI;
+  const mongoUri = process.env.MONGODB_URI; // mengakses process env
   const collection = process.env.MONGODB_COLLECTION;
 
   const args = process.argv.slice(2);
@@ -17,13 +14,10 @@ async function main() {
   /**--------------- Not allowed to be edited - end - --------------------- */
 
   // Connect to MongoDB
-  await mongoose.connect(mongoUri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+  await mongoose.connect(mongoUri);
 
   // Define a schema for the collection
-  const schema = new mongoose.Schema(
+  const MovieSchema = Schema(
     {
       title: String,
       year: Number,
@@ -34,19 +28,21 @@ async function main() {
     },
     { strict: false }
   );
-  const Model = mongoose.model(collection, schema);
+
+  const Model = mongoose.model(collection, MovieSchema);
 
   switch (command) {
     case "check-db-connection":
       await checkConnection();
       break;
     case "reset-db":
-      await MovieModel.deleteMany();
+      await Model.deleteMany();
       break;
     case "bulk-insert":
-      const data = fs.readFileSync("./config.json");
+      const data = fs.readFileSync("./seed.json");
       const parsed = JSON.parse(data);
-      await MovieModel.insertMany(parsed);
+      await Model.insertMany(parsed);
+
       break;
     // TODO: Buat logic fungsionalitas yg belum tersedia di bawah
     default:

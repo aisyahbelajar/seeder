@@ -29,7 +29,7 @@ Open your terminal in the project folder and run the following commands to perfo
 2. Reset Datase
    To delete all data in the data collection, use the following command:
    ```bash
-   npm run reser-db
+   npm run reset-db
 
 3. Bulk Insert
    To add data from `seed.json` to the database, run:
@@ -43,9 +43,10 @@ Open your terminal in the project folder and run the following commands to perfo
 
 5. Debugging
   If you encounter issues while running the commands, check the logs in the terminal. Here are some debugging steps that may help:
-- Ensure MongoDB is running and accessible.
-- Verify that the connection URL in the configuration file is correct.
-- Check that seed.json exists in the correct location and is formatted properly.
+   - Ensure MongoDB is running and accessible.
+   - Verify that the connection URL in the configuration file is correct.
+   - Check that seed.json exists in the correct location and is formatted properly.
 
 ## Conclusion
+
 By following the steps above, you should be able to manage data in your MongoDB database easily. If you have further questions, please open an issue in this repository or contact the project maintainer.
